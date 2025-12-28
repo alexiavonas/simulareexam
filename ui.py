@@ -1,11 +1,13 @@
 from random import choice
 
+from StudentValidator import StudentValidator
 from service import Service
 
 
 class Ui:
-    def __init__(self,service:Service):
+    def __init__(self,service:Service, validator: StudentValidator):
         self.service=service
+        self.validator = validator
     def print_menu(self):
         print("1.Afiseaza studenti")
         print("2.Adauga student")
@@ -18,8 +20,9 @@ class Ui:
                 for student in students:
                     print(student)
             elif choice==2:
-                cnp=input("Scrie cnp:")
+                cnp=int(input("Scrie cnp:"))
                 nume=input("Scrie numele:")
-                grupa=input("Scrie grupa studentului:")
+                grupa=int(input("Scrie grupa studentului:"))
+                self.validator.validate(cnp)
                 self.service.add_student(cnp,grupa,nume)
 
